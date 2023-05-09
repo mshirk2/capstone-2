@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://tool-library.com/toolSearch.schema.json",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additionalProperties": false,
+    "required": []
+  }
+  
