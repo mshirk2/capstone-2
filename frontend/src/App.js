@@ -62,7 +62,9 @@ function App() {
           setCurrentUser
         }}
       >
-        <div className="App"></div> // nav bar and routes components
+        <div className="App">
+          <NavBar logout={logout} />
+        </div>
       </UserContext.Provider>
     </BrowserRouter>
   );
