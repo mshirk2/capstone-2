@@ -5,7 +5,6 @@ const express = require('express');
 
 const { BadRequestError } = require("../expressError");
 const Tool = require ("../models/tool");
-const toolNewSchema = require("../schemas/toolNew.json");
 const toolSearchSchema = require("../schemas/toolSearch.json");
 
 const router = express.Router();

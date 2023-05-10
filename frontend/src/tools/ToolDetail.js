@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import ToolLibraryApi from "../api";
-import UserContext from "../auth/UserContext";
 
 
 function ToolDetail(){
@@ -23,12 +22,15 @@ function ToolDetail(){
         <div className = "ToolDetail">
             <div>
                 <h4 className="display-4">{tool.title}</h4>
+                <img src={tool.images} alt={tool.title} />
                 <p>Catalog Code: {tool.catalogCode}</p>
                 <p>Brand: {tool.brand}</p>
                 <p>Model: {tool.model}</p>
                 <p>Condition: {tool.condition}</p>
                 <p>Description: {tool.description}</p>
                 <p>Contents: {tool.contents}</p>
+                <p>Tags: {tool.tags}</p>
+                Reserve
             </div>
         </div>
     )

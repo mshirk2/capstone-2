@@ -43,7 +43,7 @@ class Tool {
         return tool;
     }
 
-    // Find all tools, with optional search filters title (finds case-insensitive, partial matches)
+    // Find all tools, with optional filter by title (finds case-insensitive, partial matches)
     static async findAll({ title } = {}) {
         let query = `SELECT id,
                             title,
@@ -60,7 +60,7 @@ class Tool {
 
         if (title !== undefined) {
             queryValues.push(`%${title}%`);
-            whereExpressions.push(`title ILIKE $${queryValues.lengh}`);
+            whereExpressions.push(`title ILIKE $${queryValues.length}`);
         }
 
         if (whereExpressions.length > 0) {
