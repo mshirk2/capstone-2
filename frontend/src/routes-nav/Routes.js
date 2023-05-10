@@ -4,6 +4,8 @@ import Home from './Home';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 import ProfileForm from '../auth/ProfileForm';
+import ToolList from '../tools/ToolList';
+import ToolDetail from '../tools/ToolDetail';
 import './Routes.css';
 
 function Routes({signup, login}){
@@ -23,10 +25,10 @@ function Routes({signup, login}){
                     <ProfileForm />
                 </Route>
                 <Route exact path="/tools">
-
+                    <ToolList />
                 </Route>
                 <Route exact path="/tools/:id">
-                    
+                    <ToolDetail />
                 </Route>
                 <Route>
                     <div className='404'>Page Not Found</div>
