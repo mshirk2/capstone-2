@@ -10,7 +10,7 @@ class ToolLibraryApi {
 
         // pass auth token through the header
         const url = `${BASE_URL}/${endpoint}`;
-        const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+        const headers = { Authorization: `Bearer ${ToolLibraryApi.token}` };
         const params = (method === "get")
             ? data
             : {};

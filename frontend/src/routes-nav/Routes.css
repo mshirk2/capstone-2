@@ -1,0 +1,8 @@
+.Routes {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    padding: 2em;
+    min-width: 50%;
+}

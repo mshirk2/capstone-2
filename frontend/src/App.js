@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import jwt from "jsonwebtoken";
 import { BrowserRouter } from 'react-router-dom';
 import useLocalStorage from './hooks/useLocalStorage';
 import UserContext from './auth/UserContext';
+import NavBar from './routes-nav/NavBar';
+import Routes from './routes-nav/Routes';
 import ToolLibraryApi from './api';
 import './App.css';
 
@@ -64,6 +67,7 @@ function App() {
       >
         <div className="App">
           <NavBar logout={logout} />
+          <Routes signup={signup} login={login} />
         </div>
       </UserContext.Provider>
     </BrowserRouter>

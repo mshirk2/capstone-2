@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import UserContext from '../auth/UserContext';
+import './NavBar.css';
 
 function NavBar({logout}) {
     const { currentUser } = useContext(UserContext);
@@ -10,13 +11,13 @@ function NavBar({logout}) {
         return(
             <>
                 <NavItem>
-                    <NavLink to="/tools">Tools</NavLink>
+                    <NavLink to="/tools" className="nav-link">Tools</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink to="/profile">{currentUser.username}</NavLink>
+                    <NavLink to="/profile" className="nav-link">{currentUser.username}</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink to="/" onClick={logout}>Logout</NavLink>
+                    <NavLink to="/" onClick={logout} className="nav-link">Logout</NavLink>
                 </NavItem>
             </>
         );
@@ -26,19 +27,23 @@ function NavBar({logout}) {
         return(
             <>
                 <NavItem>
-                    <NavLink to='/login'>Login</NavLink>
+                    <NavLink to='/login' className="nav-link">Login</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink to='/signup'>Sign Up</NavLink>
+                    <NavLink to='/signup' className="nav-link">Sign Up</NavLink>
                 </NavItem>
             </>
         );
     }
 
     return(
-        <Navbar expand="md">
-            <NavLink exact to="/">Tool Library</NavLink>
-            <Nav>{currentUser ? loggedinNav() : loggedOutNav()}</Nav>
+        <Navbar expand="md" className='Navbar mb-4'>
+            <NavLink exact to="/" className="navbar-brand nav-link">
+                Tool Library
+            </NavLink>
+            <Nav className='ml-auto'>
+                {currentUser ? loggedinNav() : loggedOutNav()}
+            </Nav>
         </Navbar>
     )
 }
