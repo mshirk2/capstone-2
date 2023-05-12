@@ -29,12 +29,16 @@ function ToolList(){
                             <ToolCard
                                 key={t.id}
                                 id={t.id}
+                                catalogCode={t.catalogCode}
                                 title={t.title}
                                 brand={t.brand}
                                 model={t.model}
                                 condition={t.condition}
                                 description={t.description}
                                 contents={t.contents}
+                                available={t.available}
+                                tags={t.tags}
+                                image={t.images[0]}
                             />
                         ))}
                     </div>

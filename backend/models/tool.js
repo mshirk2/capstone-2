@@ -67,8 +67,25 @@ class Tool {
             query += " WHERE " + whereExpressions.join(" AND ");
         }
 
-        query += " ORDER BY title ";
+        query += " ORDER BY title";
         const result = await db.query(query, queryValues);
+
+        for(let item of result.rows){
+            const tagResult = await db.query(
+                `SELECT name
+                 FROM tags
+                    JOIN tools_tags AS tt ON tt.tag_id = tags.id
+                 WHERE tt.tool_id = $1`, [item.id]);
+            item.tags = tagResult.rows.map(tags => tags.name);
+
+            const imageResult = await db.query(
+                `SELECT url
+                 FROM images
+                    JOIN tools_images AS ti ON ti.image_id = images.id
+                 WHERE ti.tool_id = $1`, [item.id]);
+      
+            item.images = imageResult.rows.map(images => images.url);
+        }
 
         return result.rows;
     }
@@ -96,6 +113,7 @@ class Tool {
              FROM tags
                 JOIN tools_tags AS tt ON tt.tag_id = tags.id
              WHERE tt.tool_id = $1`, [id]);
+
         tool.tags = tagResult.rows.map(tags => tags.name);
 
         const imageResult = await db.query(
