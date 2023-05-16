@@ -43,7 +43,7 @@ function SignupForm({signup}) {
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
-                            <label for="username">Username</label>
+                            <label htmlFor="username">Username</label>
                             <input
                                 name="username"
                                 id="username"
@@ -56,7 +56,7 @@ function SignupForm({signup}) {
                             />
                         </div>
                         <div className="form-group mb-2">
-                            <label for="email">Email</label>
+                            <label htmlFor="email">Email</label>
                             <input
                                 name="email"
                                 id="email"
@@ -67,7 +67,7 @@ function SignupForm({signup}) {
                             />
                         </div>
                         <div className="form-group mb-2">
-                            <label for="firstName">First Name</label>
+                            <label htmlFor="firstName">First Name</label>
                             <input
                                 name="firstName"
                                 id="firstName"
@@ -78,7 +78,7 @@ function SignupForm({signup}) {
                             />
                         </div>
                         <div className="form-group mb-2">
-                            <label for="lastName">Last Name</label>
+                            <label htmlFor="lastName">Last Name</label>
                             <input
                                 name="lastName"
                                 id="lastName"
@@ -89,7 +89,7 @@ function SignupForm({signup}) {
                             />
                         </div>
                         <div className="form-group mb-3">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input
                                 name="password"
                                 id="password"
@@ -101,14 +101,7 @@ function SignupForm({signup}) {
                                 required
                             />
                         </div>
-                        <div>
-                            <input
-                                type="Submit"
-                                value="Sign Up"
-                                className="btn btn-dark"
-                                readOnly
-                            />
-                        </div>
+                        <button type="submit" className="btn btn-dark">Sign Up</button>
                     </form>
                 </div>
             </div>

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import UserContext from '../auth/UserContext';
+import toolLibraryLogo from "../images/screwdriver-wrench-solid.svg";
+
 import './NavBar.css';
 
 function NavBar({logout}) {
@@ -39,6 +41,7 @@ function NavBar({logout}) {
     return(
         <Navbar expand="md" className='Navbar mb-4'>
             <NavLink exact to="/" className="navbar-brand nav-link">
+                <img src={toolLibraryLogo} alt="Tool Library Logo" width="30" height="30" />
                 Tool Library
             </NavLink>
             <Nav className='ml-auto'>

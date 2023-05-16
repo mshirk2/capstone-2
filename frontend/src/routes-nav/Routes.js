@@ -3,10 +3,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
-import ProfileForm from '../auth/ProfileForm';
 import ToolList from '../tools/ToolList';
 import ToolDetail from '../tools/ToolDetail';
+import UserDetail from '../users/UserDetail';
 import './Routes.css';
+
 
 function Routes({signup, login}){
     return (
@@ -22,7 +23,7 @@ function Routes({signup, login}){
                     <SignupForm signup={signup} />
                 </Route>
                 <Route exact path="/profile">
-                    <ProfileForm />
+                    <UserDetail />
                 </Route>
                 <Route exact path="/tools">
                     <ToolList />

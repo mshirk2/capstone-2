@@ -40,7 +40,7 @@ function LoginForm({login}){
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
-                            <label for="username">Username</label>
+                            <label htmlFor="username">Username</label>
                                 <input
                                     name="username"
                                     id="username"
@@ -53,7 +53,7 @@ function LoginForm({login}){
                                 />
                         </div>
                         <div className="form-group mb-3">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input
                                 name="password"
                                 id="password"
@@ -65,14 +65,7 @@ function LoginForm({login}){
                                 required
                             />
                         </div>
-                        <div>
-                            <input
-                                type="Submit"
-                                value="Login"
-                                className="btn btn-dark"
-                                readOnly
-                            />
-                        </div>
+                        <button type="submit" className="btn btn-dark">Submit</button>
                     </form>
                 </div>
             </div>
