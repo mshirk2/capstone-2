@@ -39,8 +39,8 @@ function LoginForm({login}){
                 <h2 className="display-4 m-4">Login</h2>
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group row">
-                            <label htmlFor="username">Username</label>
+                        <div className="form-group mb-2">
+                            <label for="username">Username</label>
                                 <input
                                     name="username"
                                     id="username"
@@ -52,8 +52,8 @@ function LoginForm({login}){
                                     required
                                 />
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="password">Password</label>
+                        <div className="form-group mb-3">
+                            <label for="password">Password</label>
                             <input
                                 name="password"
                                 id="password"

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 function SearchForm({searchFor}){
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,20 +17,24 @@ function SearchForm({searchFor}){
     return(
         <div>
             <form onSubmit={handleSubmit}>
-                <div className="form-group row m-4">
-                    <input
-                        name="searchTerm"
-                        placeholder="Enter search term..."
-                        value={searchTerm}
-                        className="form-control col-md-10"
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="Submit"
-                        value="Search"
-                        className="form-control col-md-2"
-                        readOnly
-                    />
+                <div className="row my-4">
+                    <div className="col-8">
+                        <input
+                            name="searchTerm"
+                            placeholder="Enter search term..."
+                            value={searchTerm}
+                            className="form-control"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="col-4">
+                        <input
+                            type="Submit"
+                            value="Search"
+                            className="form-control btn btn-dark"
+                            readOnly
+                        />
+                    </div>
                 </div>
             </form>
         </div>

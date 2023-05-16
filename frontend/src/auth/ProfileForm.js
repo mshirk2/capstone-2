@@ -61,13 +61,16 @@ function ProfileForm(){
                 <h4 className="m-4 display-4">Edit Profile</h4>
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group row">
-                            <label htmlFor="username">Username</label>
-                            <p className="form-control-plaintext lead">{formData.username}
-                            </p>
+                        <div className="form-group mb-2">
+                            <label for="username">Username</label>
+                            <input 
+                                readonly
+                                id="username" className="form-control-plaintext"
+                                value={formData.username}
+                            />
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="email">Email</label>
+                        <div className="form-group mb-2">
+                            <label for="email">Email</label>
                             <input
                                 name="email"
                                 id="email"
@@ -77,8 +80,8 @@ function ProfileForm(){
                                 value={formData.email}
                             />
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="firstName">First Name</label>
+                        <div className="form-group mb-2">
+                            <label for="firstName">First Name</label>
                             <input
                                 name="firstName"
                                 id="firstName"
@@ -88,8 +91,8 @@ function ProfileForm(){
                                 value={formData.firstName}
                             />
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="lastName">Last Name</label>
+                        <div className="form-group mb-2">
+                            <label for="lastName">Last Name</label>
                             <input
                                 name="lastName"
                                 id="lastName"
@@ -99,8 +102,8 @@ function ProfileForm(){
                                 value={formData.lastName}
                             />
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="password">Enter password to save changes:</label>
+                        <div className="form-group mb-3">
+                            <label for="password">Enter password to save changes:</label>
                             <input
                                 name="password"
                                 id="password"
@@ -111,11 +114,11 @@ function ProfileForm(){
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="col-4">
                             <input
                                 type="Submit"
                                 value="Save"
-                                className="btn btn-dark"
+                                className="form-control btn btn-dark"
                                 readOnly
                             />
                         </div>

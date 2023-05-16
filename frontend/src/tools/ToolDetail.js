@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import ToolLibraryApi from "../api";
+import './ToolDetail.css'
 
 
 function ToolDetail(){
