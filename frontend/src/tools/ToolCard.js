@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import placeholderImage from "../images/screwdriver-wrench-solid.svg";
 import "./ToolCard.css"
 
 function ToolCard({id, title, catalogCode, brand, model, condition, description, contents, available, tags, image}){
 
-
+    if(!image) image = placeholderImage;
 
     return (
         <div className="ToolCard card">
