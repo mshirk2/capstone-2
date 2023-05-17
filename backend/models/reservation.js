@@ -42,7 +42,7 @@ class Reservation {
             query += ` WHERE user_id = ${user_id}`
         }
 
-        const result = db.query(query);
+        const result = await db.query(query);
 
         return result.rows;
     }
