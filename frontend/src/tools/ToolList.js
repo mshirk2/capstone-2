@@ -43,7 +43,7 @@ function ToolList(){
                         ))}
                     </div>
                 )
-            : (<p>Results Not Found</p>)
+            : <p>No Tools Found</p>
             }
         </div>
     )

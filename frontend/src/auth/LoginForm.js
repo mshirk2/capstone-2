@@ -36,7 +36,7 @@ function LoginForm({login}){
                     </Alert>
                     : null
                 }
-                <h2 className="display-4 m-4">Login</h2>
+                <h2 className="display-4 my-4">Welcome back</h2>
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
@@ -65,7 +65,7 @@ function LoginForm({login}){
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn btn-dark">Submit</button>
+                        <button type="submit" className="btn btn-dark">Log in</button>
                     </form>
                 </div>
             </div>

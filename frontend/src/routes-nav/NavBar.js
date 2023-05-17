@@ -16,7 +16,7 @@ function NavBar({logout}) {
                     <NavLink to="/tools" className="nav-link">Tools</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink to="/profile" className="nav-link">{currentUser.username}</NavLink>
+                    <NavLink to={`/users/${currentUser.id}`} className="nav-link">{currentUser.username}</NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink to="/" onClick={logout} className="nav-link">Logout</NavLink>

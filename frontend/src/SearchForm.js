@@ -27,14 +27,7 @@ function SearchForm({searchFor}){
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="col-4">
-                        <input
-                            type="Submit"
-                            value="Search"
-                            className="form-control btn btn-dark"
-                            readOnly
-                        />
-                    </div>
+                    <button type="submit" className="btn btn-dark col-4">Search</button>
                 </div>
             </form>
         </div>

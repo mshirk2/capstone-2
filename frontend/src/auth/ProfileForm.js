@@ -47,7 +47,69 @@ function ProfileForm(){
 
     return (
         <div className="ProfileForm">
-            <div className="container">
+            <h4 className="display-4 my-4">Edit Profile</h4>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group mb-2">
+                        <label htmlFor="username">Username</label>
+                        <input 
+                            readOnly
+                            id="username" className="form-control-plaintext"
+                            autoComplete="username"
+                            value={formData.username}
+                        />
+                    </div>
+                    <div className="form-group mb-2">
+                        <label htmlFor="email">Email</label>
+                        <input
+                            name="email"
+                            id="email"
+                            type="email"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={formData.email}
+                        />
+                    </div>
+                    <div className="form-group mb-2">
+                        <label htmlFor="firstName">First Name</label>
+                        <input
+                            name="firstName"
+                            id="firstName"
+                            type="text"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={formData.firstName}
+                        />
+                    </div>
+                    <div className="form-group mb-2">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input
+                            name="lastName"
+                            id="lastName"
+                            type="text"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={formData.lastName}
+                        />
+                    </div>
+                    <div className="form-group mb-3">
+                        <label htmlFor="password">Confirm password to save changes:</label>
+                        <input
+                            name="password"
+                            id="password"
+                            type="password"
+                            className="form-control"
+                            autoComplete="current-password"
+                            onChange={handleChange}
+                            value={formData.password}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-dark mr-2">Save</button>
+                    <a href={`/users/${currentUser.id}`} className="btn btn-outline-dark">Cancel</a>
+                </form>
+            </div>
+            <div className="ProfileForm-errors mt-3">
                 {formErrors.length ? 
                     <Alert color="warning">
                         {formErrors.map(error =>(<p key={error}>{error}</p>))}
@@ -58,72 +120,6 @@ function ProfileForm(){
                     <Alert color="success">Changes saved.</Alert> 
                     : null 
                 }
-                <h4 className="m-4 display-4">Edit Profile</h4>
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group mb-2">
-                            <label for="username">Username</label>
-                            <input 
-                                readonly
-                                id="username" className="form-control-plaintext"
-                                value={formData.username}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <label for="email">Email</label>
-                            <input
-                                name="email"
-                                id="email"
-                                type="email"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.email}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <label for="firstName">First Name</label>
-                            <input
-                                name="firstName"
-                                id="firstName"
-                                type="text"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.firstName}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <label for="lastName">Last Name</label>
-                            <input
-                                name="lastName"
-                                id="lastName"
-                                type="text"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.lastName}
-                            />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label for="password">Enter password to save changes:</label>
-                            <input
-                                name="password"
-                                id="password"
-                                type="password"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.password}
-                                required
-                            />
-                        </div>
-                        <div className="col-4">
-                            <input
-                                type="Submit"
-                                value="Save"
-                                className="form-control btn btn-dark"
-                                readOnly
-                            />
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     )

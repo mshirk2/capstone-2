@@ -39,7 +39,7 @@ function SignupForm({signup}) {
                     </Alert> 
                     : null 
                 }
-                <h2 className="m-4 display-4">Sign Up</h2>
+                <h2 className="my-4 display-4">Sign Up</h2>
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
@@ -95,7 +95,7 @@ function SignupForm({signup}) {
                                 id="password"
                                 type="password"
                                 className="form-control"
-                                autoComplete="current-password"
+                                autoComplete="new-password"
                                 onChange={handleChange}
                                 value={password}
                                 required
