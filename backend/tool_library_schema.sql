@@ -23,9 +23,9 @@ CREATE TABLE tools (
 
 CREATE TABLE reservations (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER
+  user_id INTEGER NOT NULL
     REFERENCES users ON DELETE CASCADE,
-  tool_id INTEGER
+  tool_id INTEGER NOT NULL
     REFERENCES tools ON DELETE CASCADE,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL

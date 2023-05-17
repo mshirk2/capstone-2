@@ -75,11 +75,12 @@ class User {
                             email,
                             is_admin)
         VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING   username, 
-                    first_name AS "firstName", 
-                    last_name AS "lastName", 
-                    email, 
-                    is_admin AS "isAdmin"`,
+        RETURNING id
+                  username, 
+                  first_name AS "firstName", 
+                  last_name AS "lastName", 
+                  email, 
+                  is_admin AS "isAdmin"`,
         [
           username,
           hashedPassword,
@@ -116,15 +117,16 @@ class User {
 
   /** Given a username, return data about user.
    *
-   * Returns { username, first_name, last_name, is_admin, jobs }
-   *   where jobs is { id, title, company_handle, company_name, state }
+   * Returns { username, first_name, last_name, is_admin, reservations }
+   *   where reservations is { id }
    *
    * Throws NotFoundError if user not found.
    **/
 
   static async get(username) {
     const userResult = await db.query(
-        `SELECT username,
+        `SELECT id,
+                username,
                 first_name AS "firstName",
                 last_name AS "lastName",
                 email,

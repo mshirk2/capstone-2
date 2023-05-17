@@ -26,37 +26,36 @@ class ToolLibraryApi {
 
     // Individual API routes
 
-    // Get list of tools, with option to filter by tool title
     static async getTools(title) {
         let res = await this.request(`tools`, { title });
         return res.tools;
     }
 
-    // Get details on a tool by tool id
     static async getTool(id) {
         let res = await this.request(`tools/${id}`);
         return res.tool;
     }
 
-    // Get current user by username
     static async getCurrentUser(username) {
         let res = await this.request(`users/${username}`);
         return res.user;
     }
 
-    // User signup
+    static async getReservations(user_id) {
+        let res = await this.request(`reservations`, { user_id });
+        return res.reservations;
+    }
+
     static async signup(data) {
         let res = await this.request(`auth/register`, data, "post");
         return res.token;
     }
 
-    // User login
     static async login(data) {
         let res = await this.request(`auth/token`, data, "post");
         return res.token;
     }
 
-    // Update user profile
     static async updateProfile(username, data) {
         let res = await this.request(`users/${username}`, data, "patch");
         return res.user;
