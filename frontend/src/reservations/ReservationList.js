@@ -24,10 +24,12 @@ function ReservationList({id}){
                         {reservations.map(r => (
                             <ReservationCard
                                 key={r.id}
-                                user_id={r.user_id}
-                                tool_id={r.tool_id}
-                                start_date={r.start_date}
-                                end_date={r.end_date}
+                                title={r.title}
+                                catalog_code={r.catalog_code}
+                                start_formatted={r.start_formatted}
+                                end_formatted={r.end_formatted}
+                                diff={r.diff}
+                                images={r.images}
                             />
                         ))}
                     </div>

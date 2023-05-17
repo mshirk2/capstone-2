@@ -28,21 +28,39 @@ class Reservation {
         return result.rows[0];
     }
 
-    // Find all tools, with optional filter by user_id
+    // Find all reservations, with optional filter by user_id
     static async findAll({ user_id } = {}) {
         let query =
-            `SELECT id,
-                    user_id,
-                    tool_id,
-                    start_date,
-                    end_date
-            FROM reservations`;
+            `SELECT r.id,
+                    r.user_id,
+                    r.tool_id,
+                    r.start_date,
+                    TO_CHAR(r.start_date, 'Mon dd, yyyy') start_formatted,
+                    r.end_date,
+                    TO_CHAR(r.end_date, 'Mon dd, yyyy') end_formatted,
+                    r.end_date - now() AS diff,
+                    t.title,
+                    t.catalog_code
+            FROM reservations r
+                JOIN tools t ON t.id = r.tool_id`;
             
         if(user_id !== undefined) {
-            query += ` WHERE user_id = ${user_id}`
+            query += ` WHERE r.user_id = ${user_id}`
         }
 
+        query += ' ORDER BY end_date '
+
         const result = await db.query(query);
+
+        for(let item of result.rows){
+            const imageResult = await db.query(
+                `SELECT url
+                 FROM images
+                    JOIN tools_images AS ti ON ti.image_id = images.id
+                 WHERE ti.tool_id = $1`, [item.tool_id]);
+      
+            item.images = imageResult.rows.map(images => images.url);
+        }
 
         return result.rows;
     }
