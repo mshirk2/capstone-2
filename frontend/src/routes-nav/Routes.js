@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
+import ProfileForm from '../auth/ProfileForm';
 import ToolList from '../tools/ToolList';
 import ToolDetail from '../tools/ToolDetail';
 import UserDetail from '../users/UserDetail';
@@ -22,8 +23,11 @@ function Routes({signup, login}){
                 <Route exact path="/signup">
                     <SignupForm signup={signup} />
                 </Route>
-                <Route exact path="/profile">
+                <Route exact path="/users/:id">
                     <UserDetail />
+                </Route>
+                <Route exact path="/users/:id/edit">
+                    <ProfileForm />
                 </Route>
                 <Route exact path="/tools">
                     <ToolList />
