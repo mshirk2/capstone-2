@@ -34,7 +34,7 @@ function ToolDetail(){
                 {condition && <p>Condition: {condition}</p>}
                 {description && <p>Description: {description}</p>}
                 {contents && <p>Contents: {contents}</p>}
-                {tags && <p>Tags: {tags}</p>}
+                {tags.map(tag => (<span key={tag} className="badge badge-light mr-2 mt-2">{tag}</span>))}
             </div>
         </div>
     )

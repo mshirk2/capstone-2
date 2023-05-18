@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import placeholderImage from "../images/screwdriver-wrench-solid.svg";
 import "./ToolCard.css"
 
-function ToolCard({id, title, catalogCode, brand, model, condition, description, contents, available, tags, image}){
+function ToolCard({id, title, catalogCode, brand, model, condition, description, contents, tags, image}){
 
     if(!image) image = placeholderImage;
 
@@ -15,10 +15,9 @@ function ToolCard({id, title, catalogCode, brand, model, condition, description,
                     <h5 className="card-title">{title}</h5>
                 </Link>
                 <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
-                {brand && <div>{brand}</div>}
-                {tags && tags.map(t => 
-                    <small className="mr-2" key={t}>{t}</small>
-                )}
+                {brand && <div>Brand: {brand}</div>}
+                {condition && <div>Condition: {condition}</div>}
+                {tags.map(tag => (<span key={tag} className="badge badge-light align-bottom mr-2 mt-2">{tag}</span>))}
             </div>
         </div>
     )

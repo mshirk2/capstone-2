@@ -36,7 +36,6 @@ function ToolList(){
                                 condition={t.condition}
                                 description={t.description}
                                 contents={t.contents}
-                                available={t.available}
                                 tags={t.tags}
                                 image={t.images[0]}
                             />
