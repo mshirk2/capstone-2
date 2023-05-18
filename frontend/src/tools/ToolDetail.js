@@ -18,22 +18,23 @@ function ToolDetail(){
         getTool();
     }, [id]);
 
-    if (!tool) return <Spinner />
+    if(!tool) return <Spinner />
     if(!tool.images.length) tool.images = [placeholderImage];
 
+    let { title, catalogCode, brand, model, condition, description, contents, tags, images } = tool;
+
     return (
-        <div className = "ToolDetail">
+        <div className="ToolDetail">
             <div>
-                <img src={tool.images} alt={tool.title} />
-                <h4 className="display-4">{tool.title}</h4>
-                <p>Catalog Code: {tool.catalogCode}</p>
-                <p>Brand: {tool.brand}</p>
-                <p>Model: {tool.model}</p>
-                <p>Condition: {tool.condition}</p>
-                <p>Description: {tool.description}</p>
-                <p>Contents: {tool.contents}</p>
-                <p>Tags: {tool.tags}</p>
-                Reserve
+                <img src={images} alt={title} />
+                <h4 className="card-title">{title}</h4>
+                <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
+                {brand && <p>Brand: {brand}</p>}
+                {model && <p>Model: {model}</p>}
+                {condition && <p>Condition: {condition}</p>}
+                {description && <p>Description: {description}</p>}
+                {contents && <p>Contents: {contents}</p>}
+                {tags && <p>Tags: {tags}</p>}
             </div>
         </div>
     )

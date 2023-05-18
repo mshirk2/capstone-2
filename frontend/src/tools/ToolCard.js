@@ -14,6 +14,7 @@ function ToolCard({id, title, catalogCode, brand, model, condition, description,
                     {image && <img src={image} alt={title} />}
                     <h5 className="card-title">{title}</h5>
                 </Link>
+                <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
                 {brand && <div>{brand}</div>}
                 {tags && tags.map(t => 
                     <small className="mr-2" key={t}>{t}</small>
