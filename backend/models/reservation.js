@@ -79,7 +79,7 @@ class Reservation {
         return result.rows[0];
     }
 
-    static async remove(id) {
+    static async delete(id) {
         let result = await db.query(
             `DELETE
             FROM reservations

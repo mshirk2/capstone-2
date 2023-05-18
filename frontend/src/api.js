@@ -46,6 +46,11 @@ class ToolLibraryApi {
         return res.reservations;
     }
 
+    static async deleteReservation(id) {
+        let res = await this.request(`reservations/${id}/delete`, "delete");
+        return res;
+    }
+
     static async signup(data) {
         let res = await this.request(`auth/register`, data, "post");
         return res.token;

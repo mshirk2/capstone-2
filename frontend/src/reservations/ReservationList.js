@@ -25,6 +25,7 @@ function ReservationList({id}){
                             <ReservationCard
                                 key={r.id}
                                 title={r.title}
+                                tool_id={r.tool_id}
                                 catalog_code={r.catalog_code}
                                 start_formatted={r.start_formatted}
                                 end_formatted={r.end_formatted}
