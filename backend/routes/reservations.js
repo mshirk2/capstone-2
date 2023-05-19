@@ -24,7 +24,7 @@ router.get("/:id", ensureCorrectUserOrAdmin, async function (req, res, next){
     }
 });
 
-router.get("/:id/complete", ensureCorrectUserOrAdmin, async function (req, res, next){
+router.patch("/:id/complete", async function (req, res, next){
     try {
         await Reservation.complete(req.params.id);
         return res.json({ completed: req.params.id });

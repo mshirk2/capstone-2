@@ -83,9 +83,6 @@ class Reservation {
             item.images = imageResult.rows.map(images => images.url);
         }
 
-        console.log("query = ", query);
-        console.log("result = ", result.rows);
-
         return result.rows;
     }
 

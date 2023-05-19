@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import placeholderImage from "../images/screwdriver-wrench-solid.svg";
 import "./ReservationCard.css"
 
-function ReservationCard({id, title, tool_id, catalog_code, is_active, start_formatted, due_formatted, returned_formatted, diff, images}){
+function ReservationCard({id, title, tool_id, catalog_code, is_active, start_formatted, due_formatted, returned_formatted, diff, images, completeReservation}){
 
     // Determine formatting for day/days until tool is due
     let dayOrDays = 'days';
@@ -22,6 +22,9 @@ function ReservationCard({id, title, tool_id, catalog_code, is_active, start_for
         toolDueClass = "text-muted";
     }
 
+    async function handleComplete(){
+        completeReservation(id);
+    }
 
     if(!images) images[0] = placeholderImage;
 
@@ -47,11 +50,10 @@ function ReservationCard({id, title, tool_id, catalog_code, is_active, start_for
                     {images && <img src={images[0]} alt={title} />}
                     <h5 className="card-title">{title}</h5>
                 </Link>
-
                 <h6 className="card-subtitle mb-2 text-muted">{catalog_code}</h6>
                 <div>Reserved: {start_formatted}</div>
                 <div>Due: {due_formatted}</div>
-                <a href={`/reservations/${id}/complete`} className="btn btn-outline-dark mt-5">Return</a>
+                <button className="btn btn-outline-dark mt-5" onClick={handleComplete}>Return</button>
             </div>
             <div className="card-footer">
                 <small className={toolDueClass}>{toolDue}</small>

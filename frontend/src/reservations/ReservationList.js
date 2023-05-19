@@ -7,20 +7,29 @@ function ReservationList({id}){
     const [pastReservations, setPastReservations] = useState(null);
 
     useEffect(function getActiveReservationsOnMount(){
-        async function getActiveReservations(){
-            let result = await ToolLibraryApi.getReservations(id, true);
-            setActiveReservations(result);
-        }
         getActiveReservations();
     }, [id, true]);
 
+    async function getActiveReservations(){
+        let result = await ToolLibraryApi.getReservations(id, true);
+        setActiveReservations(result);
+    }
+
     useEffect(function getPastReservationsOnMount(){
-        async function getPastReservations(){
-            let result = await ToolLibraryApi.getReservations(id, false);
-            setPastReservations(result);
-        }
         getPastReservations();
     }, [id, false]);
+
+    async function getPastReservations(){
+        let result = await ToolLibraryApi.getReservations(id, false);
+        setPastReservations(result);
+    }
+
+    async function completeReservation(id){
+        id = parseInt(id);
+        await ToolLibraryApi.completeReservation(id);
+        getActiveReservations();
+        getPastReservations();
+    }
 
     console.log("activeReservations = ", activeReservations);
     console.log("pastReservations = ", pastReservations);
@@ -45,6 +54,7 @@ function ReservationList({id}){
                                         returned_formatted={r.returned_formatted}
                                         diff={r.diff}
                                         images={r.images}
+                                        completeReservation={completeReservation}
                                     />
                                 ))}
                             </div>

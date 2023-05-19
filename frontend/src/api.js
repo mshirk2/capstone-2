@@ -48,12 +48,12 @@ class ToolLibraryApi {
 
     // Set returned date, make reservation inactive
     static async completeReservation(id){
-        let res = await this.request(`reservations/${id}/complete`, "patch");
+        let res = await this.request(`reservations/${id}/complete`, {}, "patch");
         return res;
     }
 
     static async deleteReservation(id) {
-        let res = await this.request(`reservations/${id}/delete`, "delete");
+        let res = await this.request(`reservations/${id}/delete`, {}, "delete");
         return res;
     }
 
