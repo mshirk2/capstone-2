@@ -8,48 +8,69 @@ class Reservation {
             `INSERT INTO reservations (
                 user_id,
                 tool_id,
+                is_active,
                 start_date,
-                end_date)
+                due_date,
+                returned_date)
             VALUES ($1, $2, $3, $4)
             RETURNING
                 id,
                 user_id,
                 tool_id,
+                is_active,
                 start_date,
-                end_date`,
+                due_date,
+                returned_date`,
             [
                 data.user_id,
                 data.tool_id,
+                data.is_active,
                 data.start_date,
-                data.end_date
+                data.due_date,
+                data.returned_date
             ],
         );
 
         return result.rows[0];
     }
 
-    // Find all reservations, with optional filter by user_id
-    static async findAll({ user_id } = {}) {
+    // Find all reservations, with optional filter by user_id or is_active
+    static async findAll({ user_id, is_active } = {}) {
         let query =
             `SELECT r.id,
                     r.user_id,
                     r.tool_id,
+                    r.is_active,
                     r.start_date,
                     TO_CHAR(r.start_date, 'Mon dd, yyyy') start_formatted,
-                    r.end_date,
-                    TO_CHAR(r.end_date, 'Mon dd, yyyy') end_formatted,
-                    r.end_date - now() AS diff,
+                    r.due_date,
+                    TO_CHAR(r.due_date, 'Mon dd, yyyy') due_formatted,
+                    r.due_date - now() AS diff,
+                    r.returned_date,
+                    TO_CHAR(r.returned_date, 'Mon dd, yyyy') returned_formatted,
                     t.title,
                     t.catalog_code
             FROM reservations r
                 JOIN tools t ON t.id = r.tool_id`;
+        let whereExpressions = [];
+
+    // For each possible search term, add to whereExpressions and
+    // queryValues so we can generate the right SQL
             
-        if(user_id !== undefined) {
-            query += ` WHERE r.user_id = ${user_id}`
+        if (user_id !== undefined) {
+            whereExpressions.push(`r.user_id = ${user_id}`);
         }
 
-        query += ' ORDER BY end_date '
-
+        if (is_active === 'true'){
+            whereExpressions.push(`r.is_active = TRUE`);
+        } else whereExpressions.push(`r.is_active = FALSE`);
+        
+        if (whereExpressions.length > 0) {
+            query += " WHERE " + whereExpressions.join(" AND ");
+        }
+      
+          // Finalize query and return results
+        query += " ORDER BY r.due_date";
         const result = await db.query(query);
 
         for(let item of result.rows){
@@ -62,6 +83,9 @@ class Reservation {
             item.images = imageResult.rows.map(images => images.url);
         }
 
+        console.log("query = ", query);
+        console.log("result = ", result.rows);
+
         return result.rows;
     }
 
@@ -70,12 +94,26 @@ class Reservation {
             `SELECT id,
                     user_id,
                     tool_id,
+                    is_active,
                     start_date,
-                    end_date
+                    due_date,
+                    returned_date
             FROM reservations
             WHERE id = $1`, [id]
         );
 
+        return result.rows[0];
+    }
+
+    // Given reservation id, set returned date and make inactive
+    static async complete(id){
+        let result = await db.query (
+            `UPDATE reservations
+            SET returned_date = now(),
+                is_active = FALSE
+            WHERE id = $1
+            RETURNING id`, [id]
+        );
         return result.rows[0];
     }
 

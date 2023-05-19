@@ -15,8 +15,7 @@ class Tool {
                 model,
                 condition,
                 description,
-                contents, 
-                available)
+                contents)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING   
                 id,
@@ -26,8 +25,7 @@ class Tool {
                 model,
                 condition,
                 description,
-                contents, 
-                available`,
+                contents`,
             [
                 data.title,
                 data.catalogCode,
@@ -35,8 +33,7 @@ class Tool {
                 data.model,
                 data.condition,
                 data.description,
-                data.contents,
-                data.available
+                data.contents
             ],
         );
         const tool = result.rows[0];
@@ -45,16 +42,15 @@ class Tool {
 
     // Find all tools, with optional filter by title (finds case-insensitive, partial matches)
     static async findAll({ title } = {}) {
-        let query = `SELECT id,
-                            title,
-                            catalog_code AS "catalogCode",
-                            brand,
-                            model,
-                            condition,
-                            description,
-                            contents, 
-                            available
-                    FROM tools`;
+        let query = `SELECT t.id,
+                            t.title,
+                            t.catalog_code AS "catalogCode",
+                            t.brand,
+                            t.model,
+                            t.condition,
+                            t.description,
+                            t.contents
+                    FROM tools t`;
         let queryValues = [];
         let whereExpressions = [];
 
@@ -100,9 +96,8 @@ class Tool {
                     model,
                     condition,
                     description,
-                    contents, 
-                    available
-            FROM tools
+                    contents
+            FROM tools t
             WHERE id = $1`, [id]);
         const tool = result.rows[0];
 

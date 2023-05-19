@@ -26,9 +26,6 @@
       },
       "contents": {
         "type": "string"
-      },
-      "available": {
-        "type": "boolean"
       }
     },
     "additionalProperties": false,

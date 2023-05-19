@@ -17,8 +17,7 @@ CREATE TABLE tools (
   model TEXT,
   condition TEXT NOT NULL,
   description TEXT,
-  contents TEXT,
-  available BOOLEAN NOT NULL DEFAULT TRUE
+  contents TEXT
 );
 
 CREATE TABLE reservations (
@@ -27,8 +26,10 @@ CREATE TABLE reservations (
     REFERENCES users ON DELETE CASCADE,
   tool_id INTEGER NOT NULL
     REFERENCES tools ON DELETE CASCADE,
+  is_active BOOLEAN NOT NULL DEFAULT FALSE,
   start_date DATE NOT NULL,
-  end_date DATE NOT NULL
+  due_date DATE NOT NULL,
+  returned_date DATE
 );
 
 CREATE TABLE tags (

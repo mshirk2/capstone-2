@@ -5,7 +5,7 @@ const Reservation = require("../models/reservation");
 const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const router = express.Router();
 
-router.get("/", ensureCorrectUserOrAdmin, async function (req, res, next){
+router.get("/", async function (req, res, next){
     const filters = req.query;
     try {
         const reservations = await Reservation.findAll(filters);
@@ -23,6 +23,15 @@ router.get("/:id", ensureCorrectUserOrAdmin, async function (req, res, next){
         return next(err);
     }
 });
+
+router.get("/:id/complete", ensureCorrectUserOrAdmin, async function (req, res, next){
+    try {
+        await Reservation.complete(req.params.id);
+        return res.json({ completed: req.params.id });
+    } catch (err) {
+        return next(err);
+    }
+})
 
 router.delete("/:id", ensureAdmin, async function (req, res, next) {
     try {
