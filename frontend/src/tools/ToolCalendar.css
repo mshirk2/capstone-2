@@ -1,4 +1,4 @@
-.ToolDetail {
+.ToolCalendar {
     background-color: white;
     border-radius: 10px;
     border: none;
@@ -7,12 +7,6 @@
 
 .card-body {
     text-align: left;
-}
-
-.ToolDetail img {
-    width: 30%;
-    float: left;
-    margin-right: 1em;
 }
 
 .link {

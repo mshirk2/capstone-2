@@ -17,7 +17,7 @@ function ToolCard({id, title, catalogCode, brand, model, condition, description,
                 <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
                 {brand && <div>Brand: {brand}</div>}
                 {condition && <div>Condition: {condition}</div>}
-                {tags.map(tag => (<span key={tag} className="badge badge-light align-bottom mr-2 mt-2">{tag}</span>))}
+                {tags.map(tag => (<span key={tag} className="badge badge-light mr-2 mt-2">{tag}</span>))}
             </div>
         </div>
     )

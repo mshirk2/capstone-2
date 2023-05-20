@@ -4,6 +4,7 @@ import { Spinner } from "reactstrap";
 import ToolLibraryApi from "../api";
 import placeholderImage from "../images/screwdriver-wrench-solid.svg";
 import './ToolDetail.css'
+import ToolCalendar from "./ToolCalendar";
 
 
 function ToolDetail(){
@@ -24,17 +25,22 @@ function ToolDetail(){
     let { title, catalogCode, brand, model, condition, description, contents, tags, images } = tool;
 
     return (
-        <div className="ToolDetail">
+        <div>
+            <div className="ToolDetail card mb-4">
+                <div className="card-body">
+                    <img src={images} alt={title} />
+                    <h4 className="card-title">{title}</h4>
+                    <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
+                    {brand && <div>Brand    {brand}</div>}
+                    {model && <div>Model: {model}</div>}
+                    {condition && <div>Condition: {condition}</div>}
+                    {description && <div>Description: {description}</div>}
+                    {contents && <div>Contents: {contents}</div>}
+                    {tags.map(tag => (<span key={tag} className="badge badge-light mr-2 mt-2">{tag}</span>))}
+                </div>
+            </div>
             <div>
-                <img src={images} alt={title} />
-                <h4 className="card-title">{title}</h4>
-                <h6 className="card-subtitle mb-2 text-muted">{catalogCode}</h6>
-                {brand && <p>Brand: {brand}</p>}
-                {model && <p>Model: {model}</p>}
-                {condition && <p>Condition: {condition}</p>}
-                {description && <p>Description: {description}</p>}
-                {contents && <p>Contents: {contents}</p>}
-                {tags.map(tag => (<span key={tag} className="badge badge-light mr-2 mt-2">{tag}</span>))}
+                <ToolCalendar />
             </div>
         </div>
     )
