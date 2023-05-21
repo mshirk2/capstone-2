@@ -2,10 +2,10 @@
 
 const jsonschema = require("jsonschema");
 const express = require('express');
-
 const { BadRequestError } = require("../expressError");
 const Tool = require ("../models/tool");
 const toolSearchSchema = require("../schemas/toolSearch.json");
+const { ensureLoggedIn } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get("/", async function (req, res, next){
     }
 });
 
-router.get("/:id", async function (req, res, next){
+router.get("/:id", ensureLoggedIn, async function (req, res, next){
     try {
         const tool = await Tool.get(req.params.id);
         return res.json({ tool });

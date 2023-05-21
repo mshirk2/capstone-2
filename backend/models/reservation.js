@@ -12,7 +12,7 @@ class Reservation {
                 start_date,
                 due_date,
                 returned_date)
-            VALUES ($1, $2, $3, $4)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING
                 id,
                 user_id,
