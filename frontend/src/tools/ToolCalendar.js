@@ -1,37 +1,50 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
+import ToolLibraryApi from "../api";
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { v4 as uuid } from "uuid";
 import "./ToolCalendar.css";
 
-const EventItem = ({ info }) => {
-    const { event } = info;
-    return (
-      <div>
-        <p>{event.title}</p>
-      </div>
-    );
-};
-
-function ToolCalendar(){
+function ToolCalendar({tool_id}){
   const [events, setEvents] = useState([]);
 
-  const handleSelect = (info) => {
-    const { start, end } = info;
-    const eventNamePrompt = prompt("Enter event name");
-    if (eventNamePrompt) {
-      setEvents([
-        ...events,
+  useEffect(function getReservationsOnMount(){
+    async function getReservations(){
+      let reservations = await ToolLibraryApi.getReservations(null, tool_id, true);
+      let resEvents = reservations.map(r => (
         {
-          start,
-          end,
-          title: eventNamePrompt,
-          id: uuid(),
-        },
-      ]);
+          id: r.id,
+          title: "Reserved",
+          start: r.start_date,
+          end: r.due_date,
+          allDay: true,
+          backgroundColor: "#223843",
+          borderColor: "#223843"
+        }
+      ));
+      setEvents(resEvents);
     }
-  };
+    getReservations();
+  }, [null, tool_id, true]);
+
+  const handleSelect = (data) => {
+    const {start, end} = data;
+    alert("Reservation confirmed");
+    setEvents([
+      ...events,
+      {
+        id: uuid(),
+        title: "Reserved",
+        start: start,
+        end: end,
+        allDay: true,
+        backgroundColor: "#223843",
+        borderColor: "#223843"
+      },
+    ]);
+    
+  }
 
   return (
     <div className="ToolCalendar card">
@@ -40,6 +53,8 @@ function ToolCalendar(){
             <FullCalendar
                 editable
                 selectable
+                selectOverlap={false}
+                eventOverlap={false}
                 events={events}
                 select={handleSelect}
                 headerToolbar={{
@@ -47,9 +62,12 @@ function ToolCalendar(){
                 center: "today,dayGridMonth,dayGridWeek",
                 end: "prev,next",
                 }}
-                eventContent={(info) => <EventItem info={info} />}
                 plugins={[daygridPlugin, interactionPlugin]}
                 views={["dayGridMonth", "dayGridWeek"]}
+                validRange={{
+                    start: '2023-05-06'
+                }}
+                
             />
       </div>
     </div>

@@ -34,8 +34,8 @@ class Reservation {
         return result.rows[0];
     }
 
-    // Find all reservations, with optional filter by user_id or is_active
-    static async findAll({ user_id, is_active } = {}) {
+    // Find all reservations, with optional filter by user_id, tool_id or is_active
+    static async findAll({ user_id, tool_id, is_active } = {}) {
         let query =
             `SELECT r.id,
                     r.user_id,
@@ -59,6 +59,10 @@ class Reservation {
             
         if (user_id !== undefined) {
             whereExpressions.push(`r.user_id = ${user_id}`);
+        }
+
+        if (tool_id !== undefined) {
+            whereExpressions.push(`r.tool_id = ${tool_id}`);
         }
 
         if (is_active === 'true'){

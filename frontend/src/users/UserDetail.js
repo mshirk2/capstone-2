@@ -17,7 +17,7 @@ function UserDetail(){
                 Edit Profile
             </Link>
             <div className="UserDetail-reservations">
-               <ReservationList id={id}/>
+               <ReservationList user_id={id}/>
             </div>
         </div>
     )

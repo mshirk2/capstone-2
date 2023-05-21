@@ -40,7 +40,7 @@ function ToolDetail(){
                 </div>
             </div>
             <div>
-                <ToolCalendar />
+                <ToolCalendar tool_id={id}/>
             </div>
         </div>
     )

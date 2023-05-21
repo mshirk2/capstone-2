@@ -2,37 +2,37 @@ import React, { useState, useEffect }from "react";
 import ToolLibraryApi from "../api";
 import ReservationCard from "./ReservationCard";
 
-function ReservationList({id}){
+function ReservationList({user_id}){
     const [activeReservations, setActiveReservations] = useState(null);
     const [pastReservations, setPastReservations] = useState(null);
 
+
+    // Set active or past reservations using getReservations(user_id, tool_id, is_active)
     useEffect(function getActiveReservationsOnMount(){
         getActiveReservations();
-    }, [id, true]);
+    }, [user_id, null, true]);
 
     async function getActiveReservations(){
-        let result = await ToolLibraryApi.getReservations(id, true);
+        let result = await ToolLibraryApi.getReservations(user_id, null, true);
         setActiveReservations(result);
     }
 
     useEffect(function getPastReservationsOnMount(){
         getPastReservations();
-    }, [id, false]);
+    }, [user_id, null, false]);
 
     async function getPastReservations(){
-        let result = await ToolLibraryApi.getReservations(id, false);
+        let result = await ToolLibraryApi.getReservations(user_id, null, false);
         setPastReservations(result);
     }
 
+    // Using reservation id, set returned date, set is_active to false, and re-render components
     async function completeReservation(id){
         id = parseInt(id);
         await ToolLibraryApi.completeReservation(id);
         getActiveReservations();
         getPastReservations();
     }
-
-    console.log("activeReservations = ", activeReservations);
-    console.log("pastReservations = ", pastReservations);
 
     return (
         <div className="ReservationList">

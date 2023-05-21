@@ -41,12 +41,12 @@ class ToolLibraryApi {
         return res.user;
     }
 
-    static async getReservations(user_id, is_active) {
-        let res = await this.request(`reservations`, { user_id, is_active });
+    static async getReservations(user_id, tool_id, is_active) {
+        let res = await this.request(`reservations`, { user_id, tool_id, is_active });
         return res.reservations;
     }
 
-    // Set returned date, make reservation inactive
+    // Using reservation id, set returned date, set is_active to false
     static async completeReservation(id){
         let res = await this.request(`reservations/${id}/complete`, {}, "patch");
         return res;
