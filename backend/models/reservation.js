@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require("../db");
+const { NotFoundError } = require("../expressError");
 
 class Reservation {
     static async create(data){
@@ -67,7 +68,7 @@ class Reservation {
 
         if (is_active === 'true'){
             whereExpressions.push(`r.is_active = TRUE`);
-        } else whereExpressions.push(`r.is_active = FALSE`);
+        } else if (is_active === 'false') whereExpressions.push(`r.is_active = FALSE`);
         
         if (whereExpressions.length > 0) {
             query += " WHERE " + whereExpressions.join(" AND ");
@@ -76,6 +77,8 @@ class Reservation {
           // Finalize query and return results
         query += " ORDER BY r.due_date";
         const result = await db.query(query);
+
+        if(!result) throw new NotFoundError(`No reservation found: ${id}`);
 
         for(let item of result.rows){
             const imageResult = await db.query(
@@ -103,7 +106,11 @@ class Reservation {
             WHERE id = $1`, [id]
         );
 
-        return result.rows[0];
+        const reservation = result.rows[0]
+
+        if(!reservation) throw new NotFoundError(`No reservation found: ${id}`);
+
+        return reservation;
     }
 
     // Given reservation id, set returned date and make inactive
@@ -115,7 +122,12 @@ class Reservation {
             WHERE id = $1
             RETURNING id`, [id]
         );
-        return result.rows[0];
+
+        const reservation = result.rows[0]
+
+        if(!reservation) throw new NotFoundError(`No reservation found: ${id}`);
+
+        return reservation;
     }
 
     static async delete(id) {
@@ -127,9 +139,9 @@ class Reservation {
             [id],
         );
 
-        const reservation = result.rows[0];
+        const reservation = result.rows[0]
 
-        if (!reservation) throw new NotFoundError(`No reservation found: ${id}`);
+        if(!reservation) throw new NotFoundError(`No reservation found: ${id}`);
     }
 
 }

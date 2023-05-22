@@ -26,7 +26,7 @@ CREATE TABLE reservations (
     REFERENCES users ON DELETE CASCADE,
   tool_id INTEGER NOT NULL
     REFERENCES tools ON DELETE CASCADE,
-  is_active BOOLEAN NOT NULL DEFAULT FALSE,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
   start_date DATE NOT NULL,
   due_date DATE NOT NULL,
   returned_date DATE
