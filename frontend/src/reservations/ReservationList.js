@@ -3,8 +3,8 @@ import ToolLibraryApi from "../api";
 import ReservationCard from "./ReservationCard";
 
 function ReservationList({user_id}){
-    const [activeReservations, setActiveReservations] = useState(null);
-    const [pastReservations, setPastReservations] = useState(null);
+    const [activeReservations, setActiveReservations] = useState([]);
+    const [pastReservations, setPastReservations] = useState([]);
 
 
     // Set active or past reservations using getReservations(user_id, tool_id, is_active)
@@ -34,11 +34,14 @@ function ReservationList({user_id}){
         getPastReservations();
     }
 
+    console.log("activeReservations =", activeReservations);
+    console.log("pastReservations =", pastReservations);
+
     return (
         <div className="ReservationList">
             <div className="ReservationList-active">
                 <h4 className="my-4">Current Reservations</h4>
-                    {activeReservations !== null ?
+                    {activeReservations.length > 0 ?
                         (
                             <div className="ReservationList-active-list">
                                 {activeReservations.map(r => (
@@ -58,12 +61,17 @@ function ReservationList({user_id}){
                                     />
                                 ))}
                             </div>
-                        ) : <p>No Reservations Found</p>
+                        ) : (
+                            <div>
+                                <p>No Reservations Found</p>
+                                <a href="/tools" className="btn btn-dark">Explore Tools</a>
+                            </div>
+                        )
                     }
             </div>
             <div className="ReservationList-past">
                 <h4 className="my-4">Past Reservations</h4>
-                    {pastReservations !== null ? 
+                    {pastReservations.length > 0 ? 
                         (
                             <div className="ReservationList-past-list">
                                 {pastReservations.map(r => (

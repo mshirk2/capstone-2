@@ -9,6 +9,7 @@ function createToken(user) {
 
   let payload = {
     username: user.username,
+    id: user.id,
     isAdmin: user.isAdmin || false,
   };
 

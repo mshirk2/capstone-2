@@ -24,7 +24,7 @@ router.post("/token", async function (req, res, next) {
         const { username, password } = req.body;
         const user = await User.authenticate(username, password);
         const token = createToken(user);
-        return res.json({ token });
+        return res.json({ user, token });
     } catch (err) {
         return next(err);
     }
@@ -40,10 +40,9 @@ router.post("/register", async function (req, res, next) {
         const errs = validator.errors.map(e => e.stack);
         throw new BadRequestError(errs);
       }
-  
       const newUser = await User.register({ ...req.body, isAdmin: false });
       const token = createToken(newUser);
-      return res.status(201).json({ token });
+      return res.status(201).json({ newUser, token });
     } catch (err) {
       return next(err);
     }

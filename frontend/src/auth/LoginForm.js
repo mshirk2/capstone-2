@@ -67,6 +67,7 @@ function LoginForm({login}){
                         </div>
                         <button type="submit" className="btn btn-dark">Log in</button>
                     </form>
+                    <div className="mt-5">DEMO LOGIN - Username: testuser | Password: password</div>
                 </div>
             </div>
         </div>

@@ -20,7 +20,8 @@ class User {
   static async authenticate(username, password) {
     // try to find the user first
     const result = await db.query(
-          `SELECT username,
+          `SELECT id,
+                  username,
                   password,
                   first_name AS "firstName",
                   last_name AS "lastName",
@@ -52,13 +53,12 @@ class User {
    * Throws BadRequestError on duplicates.
    **/
 
-  static async register(
-      { username, password, firstName, lastName, email, isAdmin }) {
+  static async register({ username, password, firstName, lastName, email, isAdmin }) {
     const duplicateCheck = await db.query(
-          `SELECT username
-           FROM users
-           WHERE username = $1`,
-        [username],
+      `SELECT username
+      FROM users
+      WHERE username = $1`, 
+      [username],
     );
 
     if (duplicateCheck.rows[0]) {
@@ -75,7 +75,7 @@ class User {
                             email,
                             is_admin)
         VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING id
+        RETURNING id,
                   username, 
                   first_name AS "firstName", 
                   last_name AS "lastName", 
@@ -115,15 +115,15 @@ class User {
     return result.rows;
   }
 
-  /** Given a username, return data about user.
+  /** Given an id, return data about user.
    *
-   * Returns { username, first_name, last_name, is_admin, reservations }
+   * Returns { id, username, first_name, last_name, is_admin, reservations }
    *   where reservations is { id }
    *
    * Throws NotFoundError if user not found.
    **/
 
-  static async get(username) {
+  static async get(id) {
     const userResult = await db.query(
         `SELECT id,
                 username,
@@ -132,12 +132,12 @@ class User {
                 email,
                 is_admin AS "isAdmin"
         FROM users
-        WHERE username = $1`, [username],
+        WHERE id = $1`, [id],
     );
 
     const user = userResult.rows[0];
 
-    if (!user) throw new NotFoundError(`No user: ${username}`);
+    if (!user) throw new NotFoundError(`No user: ${id}`);
 
     const userReservations = await db.query(
           `SELECT id
@@ -165,7 +165,7 @@ class User {
    * or a serious security risks are opened.
    */
 
-  static async update(username, data) {
+  static async update(id, data) {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
     }
@@ -177,20 +177,20 @@ class User {
           lastName: "last_name",
           isAdmin: "is_admin",
         });
-    const usernameVarIdx = "$" + (values.length + 1);
+    const idVarIdx = "$" + (values.length + 1);
 
     const querySql = `UPDATE users 
                       SET ${setCols} 
-                      WHERE username = ${usernameVarIdx} 
+                      WHERE id = ${idVarIdx} 
                       RETURNING username,
                                 first_name AS "firstName",
                                 last_name AS "lastName",
                                 email,
                                 is_admin AS "isAdmin"`;
-    const result = await db.query(querySql, [...values, username]);
+    const result = await db.query(querySql, [...values, id]);
     const user = result.rows[0];
 
-    if (!user) throw new NotFoundError(`No user: ${username}`);
+    if (!user) throw new NotFoundError(`No user: ${id}`);
 
     delete user.password;
     return user;
@@ -198,17 +198,17 @@ class User {
 
   /** Delete given user from database; returns undefined. */
 
-  static async remove(username) {
+  static async remove(id) {
     let result = await db.query(
         `DELETE
         FROM users
-        WHERE username = $1
-        RETURNING username`, 
-        [username],
+        WHERE id = $1
+        RETURNING id`, 
+        [id],
     );
     const user = result.rows[0];
 
-    if (!user) throw new NotFoundError(`No user: ${username}`);
+    if (!user) throw new NotFoundError(`No user: ${id}`);
   }
 }
 

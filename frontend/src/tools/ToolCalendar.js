@@ -44,6 +44,7 @@ function ToolCalendar({tool_id}){
 
   async function handleSubmit(evt){
     evt.preventDefault();
+    console.log("currentUser = ", currentUser);
     let result = await ToolLibraryApi.createReservation({
       user_id: currentUser.id,
       tool_id: tool_id,

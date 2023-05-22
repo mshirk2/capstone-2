@@ -36,8 +36,8 @@ class ToolLibraryApi {
         return res.tool;
     }
 
-    static async getCurrentUser(username) {
-        let res = await this.request(`users/${username}`);
+    static async getCurrentUser(id) {
+        let res = await this.request(`users/${id}`);
         return res.user;
     }
 
@@ -64,16 +64,16 @@ class ToolLibraryApi {
 
     static async signup(data) {
         let res = await this.request(`auth/register`, data, "post");
-        return res.token;
+        return res;
     }
 
     static async login(data) {
         let res = await this.request(`auth/token`, data, "post");
-        return res.token;
+        return res;
     }
 
-    static async updateProfile(username, data) {
-        let res = await this.request(`users/${username}`, data, "patch");
+    static async updateProfile(id, data) {
+        let res = await this.request(`users/${id}`, data, "patch");
         return res.user;
     }
 

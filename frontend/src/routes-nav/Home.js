@@ -23,6 +23,7 @@ function Home(){
                         <Link to="/signup" className="btn btn-outline-dark col">
                             Sign Up
                         </Link>
+                        <div className="mt-5">DEMO LOGIN - Username: testuser | Password: password</div>
                     </>  
             }
         </div>
