@@ -29,11 +29,10 @@ function ProfileForm(){
             lastName: formData.lastName,
             email: formData.email,
         };
-        let username = formData.username
         let updatedUser;
 
         try {
-            updatedUser = await ToolLibraryApi.updateProfile(username, updatedData);
+            updatedUser = await ToolLibraryApi.updateProfile(currentUser.id, updatedData);
         } catch (errors){
             setFormErrors(errors);
             return;
