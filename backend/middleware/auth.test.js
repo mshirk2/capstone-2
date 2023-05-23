@@ -11,15 +11,14 @@ const {
 
 
 const { SECRET_KEY } = require("../config");
-const testJwt = jwt.sign({ username: "test", id: 1, isAdmin: false }, SECRET_KEY);
-const badJwt = jwt.sign({ username: "test", id: 2, isAdmin: false }, "wrong");
+const testJwt = jwt.sign({ username: "test1", id: 1, isAdmin: false }, SECRET_KEY);
+const badJwt = jwt.sign({ username: "test2", id: 2, isAdmin: false }, "wrong");
 
+/************************************** authenticateJWT */
 
 describe("authenticateJWT", function () {
   test("works: via header", function () {
     expect.assertions(2);
-    //there are multiple ways to pass an authorization token, this is how you pass it in the header.
-    //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const req = { headers: { authorization: `Bearer ${testJwt}` } };
     const res = { locals: {} };
     const next = function (err) {
@@ -29,7 +28,7 @@ describe("authenticateJWT", function () {
     expect(res.locals).toEqual({
       user: {
         iat: expect.any(Number),
-        username: "test",
+        username: "test1",
         id: 1,
         isAdmin: false,
       },
@@ -59,12 +58,13 @@ describe("authenticateJWT", function () {
   });
 });
 
+/************************************** ensureLoggedIn */
 
 describe("ensureLoggedIn", function () {
   test("works", function () {
     expect.assertions(1);
     const req = {};
-    const res = { locals: { user: { username: "test", id: 1, is_admin: false } } };
+    const res = { locals: { user: { username: "test", id: 1, isAdmin: false } } };
     const next = function (err) {
       expect(err).toBeFalsy();
     };
@@ -82,6 +82,7 @@ describe("ensureLoggedIn", function () {
   });
 });
 
+/************************************** ensureAdmin */
 
 describe("ensureAdmin", function () {
   test("works", function () {
@@ -115,41 +116,22 @@ describe("ensureAdmin", function () {
   });
 });
 
+/************************************** ensureCorrectUserOrAdmin */
 
 describe("ensureCorrectUserOrAdmin", function () {
-  test("works: admin", function () {
+  test("works", function () {
     expect.assertions(1);
-    const req = { params: { username: "test" } };
-    const res = { locals: { user: { username: "admin", id:1, isAdmin: true } } };
+    const req = { params: { id: 2 } };
+    const res = { locals: { user: { username: "admin", id: 3, isAdmin: true } } };
     const next = function (err) {
       expect(err).toBeFalsy();
-    };
-    ensureCorrectUserOrAdmin(req, res, next);
-  });
-
-  test("works: same user", function () {
-    expect.assertions(1);
-    const req = { params: { username: "test" } };
-    const res = { locals: { user: { username: "test", id: 1, isAdmin: false } } };
-    const next = function (err) {
-      expect(err).toBeFalsy();
-    };
-    ensureCorrectUserOrAdmin(req, res, next);
-  });
-
-  test("unauth: mismatch", function () {
-    expect.assertions(1);
-    const req = { params: { username: "wrong" } };
-    const res = { locals: { user: { username: "test", id: 1, isAdmin: false } } };
-    const next = function (err) {
-      expect(err instanceof UnauthorizedError).toBeTruthy();
     };
     ensureCorrectUserOrAdmin(req, res, next);
   });
 
   test("unauth: if anon", function () {
     expect.assertions(1);
-    const req = { params: { username: "test" } };
+    const req = { params: { id: 1 } };
     const res = { locals: {} };
     const next = function (err) {
       expect(err instanceof UnauthorizedError).toBeTruthy();

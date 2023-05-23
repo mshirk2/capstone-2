@@ -2,7 +2,7 @@
 
 const express = require("express");
 const jsonschema = require("jsonschema");
-const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
+const { ensureCorrectUserOrAdmin, ensureAdmin, ensureLoggedIn } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/user");
 const { createToken } = require("../helpers/tokens");
@@ -12,7 +12,7 @@ const userUpdateSchema = require("../schemas/userUpdate.json");
 const router = express.Router();
 
 // POST / { user } => { user, token }
-// Method for admin to add new user
+// Method for admin to manually add new user
 
 router.post("/", ensureAdmin, async function (req, res, next) {
     try {
@@ -45,7 +45,7 @@ router.get("/", ensureAdmin, async function (req, res, next) {
 // GET /[id] => { user }
 // Returns user
 
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", ensureLoggedIn, async function (req, res, next) {
     try {
         const user = await User.get(req.params.id);
         return res.json({ user });
@@ -57,7 +57,7 @@ router.get("/:id", async function (req, res, next) {
 // PATCH /[id] { user } => { user }
 // Update user
 
-router.patch("/:id", async function (req, res, next) {
+router.patch("/:id", ensureLoggedIn, async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, userUpdateSchema);
         if (!validator.valid) {
@@ -72,11 +72,10 @@ router.patch("/:id", async function (req, res, next) {
     }
 });
 
-
 // DELETE /[id]  =>  { deleted: id }
 // Delete user
 
-router.delete("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.delete("/:id", ensureAdmin, async function (req, res, next) {
     try {
         await User.remove(req.params.id);
         return res.json({ deleted: req.params.id });

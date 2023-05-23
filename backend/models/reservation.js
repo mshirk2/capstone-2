@@ -66,9 +66,9 @@ class Reservation {
             whereExpressions.push(`r.tool_id = ${tool_id}`);
         }
 
-        if (is_active === 'true'){
+        if (is_active === true){
             whereExpressions.push(`r.is_active = TRUE`);
-        } else if (is_active === 'false') whereExpressions.push(`r.is_active = FALSE`);
+        } else if (is_active === false) whereExpressions.push(`r.is_active = FALSE`);
         
         if (whereExpressions.length > 0) {
             query += " WHERE " + whereExpressions.join(" AND ");
