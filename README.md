@@ -1,7 +1,7 @@
 # Tool Library
 A full-stack web application simulating a tool lending library. This app features a functional database, RESTful API, thoughtful component hierarchy, routing, authentication, and user profiles for searching and reserving tools.
 
-Try it out here:
+Try it out here: ([mshirk-tool-library.surge.sh](https://mshirk-tool-library.surge.sh/))
 
 ## Features
 
